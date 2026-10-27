@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sorting Visualizer</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <header>
+      <div class="brand">
+        <div>
+          <h1>Sorting Visualizer</h1>
+          <div class="subtitle">Watch how different sorting algorithms work, step by step.</div>
+        </div>
+      </div>
+    </header>
+
+    <div class="layout">
+      <aside class="panel controls">
+        <h2>Controls</h2>
+        <div class="field">
+          <div class="field-head"><label for="algorithm">Algorithm</label></div>
+          <select id="algorithm">
+            <option value="bubble">Bubble Sort</option>
+            <option value="selection">Selection Sort</option>
+            <option value="insertion">Insertion Sort</option>
+            <option value="merge">Merge Sort</option>
+            <option value="quick">Quick Sort</option>
+            <option value="heap">Heap Sort</option>
+          </select>
+        </div>
+        <div class="field">
+          <div class="field-head"><label for="size">Array size</label><output id="sizeOut">10 bars</output></div>
+          <input id="size" type="range" min="8" max="20" value="10" />
+        </div>
+        <div class="field">
+          <div class="field-head"><label for="speed">Animation speed</label><output id="speedOut">Slow</output></div>
+          <input id="speed" type="range" min="1" max="100" value="25" />
+        </div>
+        <div class="field">
+          <div class="field-head"><label for="order">Initial order</label></div>
+          <select id="order">
+            <option value="random">Random</option>
+            <option value="nearly">Nearly sorted</option>
+            <option value="reversed">Reverse sorted</option>
+            <option value="few">Few unique values</option>
+          </select>
+        </div>
+        <div class="field">
+          <div class="field-head"><label for="customArray">Your own array</label></div>
+          <div class="custom-row">
+            <input type="text" id="customArray" placeholder="e.g. 40, 12, 85, 27, 60" autocomplete="off" />
+            <button id="customBtn">Use</button>
+          </div>
+          <div class="field-error" id="customError" role="alert"></div>
+        </div>
+        <div class="button-grid">
+          <button class="accent" id="shuffleBtn">Generate</button>
+          <button id="resetBtn">Reset</button>
+        </div>
+        <button class="primary wide" id="startBtn">Start sorting</button>
+        <div class="button-grid">
+          <button id="backBtn">◀ Back</button>
+          <button id="pauseBtn" disabled>Ⅱ Pause</button>
+          <button id="stepBtn">Step ▶</button>
+        </div>
+        <p class="hint">Type numbers (1 to 99, up to 20) above, or click and drag across the bars to set their heights.</p>
+        <p class="hint">Shortcuts: <kbd>Space</kbd> start/pause, <kbd>←</kbd> <kbd>→</kbd> step, <kbd>G</kbd> generate, <kbd>R</kbd> reset.</p>
+      </aside>
+
+      <main class="main">
+
+        <section class="panel viz-panel">
+          <div class="viz-top">
+            <h2>Array</h2>
+            <div class="array-label" id="arrayLabel">10 elements · unsorted</div>
+          </div>
+          <div class="viz-body">
+            <div class="bars-wrap"><div id="bars" aria-label="Array represented as vertical bars. Click or drag to change values."></div></div>
+            <div class="code-panel" id="codePanel" data-type="compare">
+              <div class="code-title" id="codeTitle">Pseudocode</div>
+              <div class="code-lines" id="codeLines"></div>
+              <div class="code-trace" id="codeTrace"></div>
+            </div>
+          </div>
+          <div class="scrub-row">
+            <input id="scrub" type="range" min="0" max="0" value="0" aria-label="Timeline: drag to jump to any step" />
+            <output id="scrubOut">Step 0 / 0</output>
+          </div>
+          <div class="legend">
+            <div class="legend-item"><span class="swatch" style="background:#4a90c2"></span>Unsorted</div>
+            <div class="legend-item"><span class="swatch" style="background:#e8c547"></span>Comparing</div>
+            <div class="legend-item"><span class="swatch" style="background:#e0584f"></span>Swapping / moving</div>
+            <div class="legend-item"><span class="swatch" style="background:#8e5bd0"></span>Pivot / key</div>
+            <div class="legend-item"><span class="swatch" style="background:#4caf6a"></span>Sorted</div>
+          </div>
+        </section>
+
+        <div class="message">
+          <div><strong id="statusTitle">Ready to sort</strong><p id="statusText">Choose an algorithm, then press Start sorting to watch how it works.</p></div>
+        </div>
+
+        <div class="bottom-row">
+          <section class="info-card">
+            <h3 id="algorithmTitle">Bubble Sort</h3>
+            <p id="algorithmDescription">Repeatedly compares adjacent values and swaps them when they are in the wrong order. Large values gradually “bubble” to the right.</p>
+            <div class="complexity" id="complexityTags">
+              <span class="tag">Best: O(n)</span><span class="tag">Average: O(n²)</span><span class="tag">Worst: O(n²)</span><span class="tag">Space: O(1)</span>
+            </div>
+          </section>
+          <section class="info-card">
+            <h3>How to read the animation</h3>
+            <p>Bars represent values: taller bars mean larger numbers. Yellow marks values being compared, red marks movement, purple marks a pivot or insertion key, and green marks values confirmed in their final sorted positions. Drag the timeline under the bars to scrub through the sort.</p>
+          </section>
+        </div>
+      </main>
+    </div>
+    
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
